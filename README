@@ -1,0 +1,9 @@
+python broker.py -v true
+
+python loggerworker.py -v true
+
+python fruitsworker.py -v true
+
+python colorclient.py -v true
+
+python fruitsclient.py -v true
