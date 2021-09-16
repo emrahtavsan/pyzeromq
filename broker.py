@@ -289,13 +289,11 @@ class MajorDomoBroker(object):
         logger_worker_service = None
         for wrk in self.waiting:
             if wrk.service.name == "W_LOGGER":
-                print( "Emrah looogger worker name 111==>>", wrk.service.name)
                 logger_worker_name = wrk
                 logger_worker_service = wrk.service.name
         #print("service.waiting  =====>",service.waiting)
         #print("service.requests =====>",service.requests)
         while service.waiting and service.requests:
-            print("GONDERRRR====>>>>>")
             worker = service.waiting.pop(0)
 
             for wrk in self.waiting:
@@ -304,12 +302,10 @@ class MajorDomoBroker(object):
                     msg = service.requests.pop(0)
                     tmp_worker_for_logger = worker
                     try:
-                        #print("111111111111111111111")
                         self.waiting.remove(worker) 
                         self.send_to_worker(worker, MDP.W_REQUEST, None, msg, worker.service.name) # "W_FRUITS"
                         print("MDP.W_WORKE ENABLE IS LOGGER===>>>", MDP.W_WORKER[""+str(worker.service.name)+""]["enablelogger"])
                         if MDP.W_WORKER[""+str(worker.service.name)+""]["enablelogger"] == "True":
-                            print("22222222222")
                             self.waiting.remove(logger_worker_name)
                             self.send_to_worker(logger_worker_name, MDP.W_REQUEST, None, msg, logger_worker_service)
                     except Exception as e:
@@ -321,8 +317,6 @@ class MajorDomoBroker(object):
 
         If message is provided, sends that message.
         """
-
-        #print("def send_to_worker ====>>>")
 
         if msg is None:
             msg = []
@@ -346,7 +340,6 @@ class MajorDomoBroker(object):
             self.socket.send_multipart(msg)
     def test(self):
         for wrk in self.waiting: 
-            print("WORKER EMRAH ==>>>>", wrk.service.name)
 
 
 def main():
